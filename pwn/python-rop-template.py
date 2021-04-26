@@ -1,4 +1,4 @@
-"""This script can be used as a ROPchain tempayloadate, or any BoF-related challenge
+"""This script can be used as a ROPchain template, or any BoF-related challenge
 
 Donn't forget to change the code for architecture, 32 or 64 bits files
 """
