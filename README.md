@@ -31,3 +31,4 @@ My aim here is not to cover every possible cases, but I try to script my way thr
 ### web
 
 * [X] Form POST SQLi bruteforce (Python)
+* [X] Async POST (JavaScript)
