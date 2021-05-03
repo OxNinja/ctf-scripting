@@ -19,6 +19,7 @@ My aim here is not to cover every possible cases, but I try to script my way thr
 ### pwn
 
 * [X] ROPchain/BoF template (Python)
+* [X] Communication through websocket (Python)
 
 ### reverse
 
