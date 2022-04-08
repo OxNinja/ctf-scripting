@@ -1,4 +1,4 @@
-import angr
+from angr import *
 
 proj = Project(input("Path to the binary to explore: "))
 win_str = input("String to look for: ").encode()
